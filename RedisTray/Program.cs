@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RedisTray.Properties;
 
 namespace RedisTray
 {
@@ -16,7 +17,15 @@ namespace RedisTray
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain());
+
+            var f = new FrmMain();
+
+            if (!Settings.Default.StartHidden)
+            {
+                f.Show();
+            }
+
+            Application.Run();
         }
     }
 }

@@ -1,7 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RedisTray.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="RedisServerPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\moonpyk\Desktop\Dev\Redis\redis-server.exe</Value>
+    </Setting>
+    <Setting Name="AutoStartRedis" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="RedisCliPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\moonpyk\Desktop\Dev\Redis\redis-cli.exe</Value>
+    </Setting>
+    <Setting Name="RedisServerConfigPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartHidden" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
