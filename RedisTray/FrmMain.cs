@@ -90,12 +90,16 @@ namespace RedisTray
             };
 
             _redisProcess = Process.Start(processStartInfo);
+            _redisProcess.EnableRaisingEvents = true;
 
             SetRedisStatus(true);
 
             _redisProcess.OutputDataReceived += RedisProcessOnOutputDataReceived;
             _redisProcess.ErrorDataReceived += RedisProcessOnOutputDataReceived;
-
+            _redisProcess.Exited += (sender, args) => Invoke((MethodInvoker)delegate
+            {
+                btnToggleServer.Checked = false;
+            });
             _redisProcess.BeginOutputReadLine();
             _redisProcess.BeginErrorReadLine();
         }
@@ -109,8 +113,13 @@ namespace RedisTray
 
             _redisProcess.CancelErrorRead();
             _redisProcess.CancelOutputRead();
-            _redisProcess.Kill();
-            _redisProcess.Dispose();
+            
+            if (!_redisProcess.HasExited)
+            {
+                _redisProcess.Kill();
+                _redisProcess.Dispose();
+            }
+            
             _redisProcess = null;
 
             SetRedisStatus(false);
@@ -162,6 +171,11 @@ namespace RedisTray
         {
             base.OnClosed(e);
             Application.Exit();
+        }
+
+        private void BrowseExecutable_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
