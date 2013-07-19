@@ -15,14 +15,25 @@ namespace RedisTray
 {
     public partial class FrmMain : Form
     {
-        private Process _redisProcess;
+        private readonly RedisProcess _redisProcess = new RedisProcess();
 
         public FrmMain()
         {
             InitializeComponent();
 
-            tabRedisCli.Visible = tabOptions.Visible = false;
             Icon = notifyIcon.Icon = Resources.redistray;
+
+            _redisProcess.OutputDataReceived += RedisProcessOnOutputDataReceived;
+            _redisProcess.ErrorDataReceived += RedisProcessOnOutputDataReceived;
+            
+            _redisProcess.PropertyChanged += (sender, args) => Invoke((MethodInvoker)delegate
+            {
+                if (args.PropertyName == "IsRunning")
+                {
+                    btnToggleServer.Checked = _redisProcess.IsRunning;
+                    SetRedisStatus(_redisProcess.IsRunning);
+                }
+            });
         }
 
         private static Settings Settings
@@ -45,14 +56,13 @@ namespace RedisTray
 
         private void btnToggleServer_CheckedChanged(object sender, System.EventArgs e)
         {
-            if (_redisProcess == null && btnToggleServer.Checked)
+            if (btnToggleServer.Checked)
             {
-                RedisProcessStart();
+                _redisProcess.Start();
             }
-
-            if (!btnToggleServer.Checked)
+            else
             {
-                RedisProcessStop();
+                _redisProcess.Stop();
             }
         }
 
@@ -68,61 +78,6 @@ namespace RedisTray
                 btnToggleServer.Image = Resources.control;
                 btnToggleServer.Text = "Start Redis";
             }
-        }
-
-        private void RedisProcessStart()
-        {
-            if (_redisProcess != null)
-            {
-                return;
-            }
-
-            var processStartInfo = new ProcessStartInfo
-            {
-                FileName               = Settings.RedisServerPath,
-                UseShellExecute        = false,
-                CreateNoWindow         = true,
-                RedirectStandardError  = true,
-                RedirectStandardInput  = true,
-                RedirectStandardOutput = true,
-                StandardOutputEncoding = Encoding.UTF8,
-                StandardErrorEncoding  = Encoding.UTF8,
-            };
-
-            _redisProcess = Process.Start(processStartInfo);
-            _redisProcess.EnableRaisingEvents = true;
-
-            SetRedisStatus(true);
-
-            _redisProcess.OutputDataReceived += RedisProcessOnOutputDataReceived;
-            _redisProcess.ErrorDataReceived += RedisProcessOnOutputDataReceived;
-            _redisProcess.Exited += (sender, args) => Invoke((MethodInvoker)delegate
-            {
-                btnToggleServer.Checked = false;
-            });
-            _redisProcess.BeginOutputReadLine();
-            _redisProcess.BeginErrorReadLine();
-        }
-
-        private void RedisProcessStop()
-        {
-            if (_redisProcess == null)
-            {
-                return;
-            }
-
-            _redisProcess.CancelErrorRead();
-            _redisProcess.CancelOutputRead();
-            
-            if (!_redisProcess.HasExited)
-            {
-                _redisProcess.Kill();
-                _redisProcess.Dispose();
-            }
-            
-            _redisProcess = null;
-
-            SetRedisStatus(false);
         }
 
         private void AppendRedisOutText(string t)
@@ -144,12 +99,21 @@ namespace RedisTray
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RedisProcessStop();
+            if (e.CloseReason != CloseReason.UserClosing)
+            {
+                return;
+            }
+            e.Cancel = true;
+            ToggleVisible();
         }
 
         private void ExitMenu_Click(object sender, EventArgs e)
         {
-            Close();
+            _redisProcess.ClearEventHandlers();
+            _redisProcess.Stop();
+
+            notifyIcon.Visible = Visible = false;
+            Application.Exit();
         }
 
         private void hideWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -157,20 +121,14 @@ namespace RedisTray
             ToggleVisible();
         }
 
-        private void ToggleVisible()
-        {
-            Visible = !Visible;
-        }
-
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
             ToggleVisible();
         }
 
-        protected override void OnClosed(EventArgs e)
+        private void ToggleVisible()
         {
-            base.OnClosed(e);
-            Application.Exit();
+            Visible = !Visible;
         }
 
         private void BrowseExecutable_Click(object sender, EventArgs e)
