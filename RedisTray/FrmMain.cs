@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using RedisTray.Properties;
+using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows.Forms;
-using RedisTray.Properties;
 
 namespace RedisTray
 {
@@ -21,11 +15,12 @@ namespace RedisTray
         {
             InitializeComponent();
 
-            Icon = notifyIcon.Icon = Resources.redistray;
+           notifyIcon.Icon = Icon = 
+               Icon.ExtractAssociatedIcon(Assembly.GetCallingAssembly().Location);
 
             _redisProcess.OutputDataReceived += RedisProcessOnOutputDataReceived;
             _redisProcess.ErrorDataReceived += RedisProcessOnOutputDataReceived;
-            
+
             _redisProcess.PropertyChanged += (sender, args) => Invoke((MethodInvoker)delegate
             {
                 if (args.PropertyName == "IsRunning")

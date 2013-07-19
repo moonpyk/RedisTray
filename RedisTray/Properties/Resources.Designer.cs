@@ -89,15 +89,5 @@ namespace RedisTray.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
-        /// </summary>
-        internal static System.Drawing.Icon redistray {
-            get {
-                object obj = ResourceManager.GetObject("redistray", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
     }
 }
