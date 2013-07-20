@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RedisTray")]
 // [assembly: AssemblyDescription("")]
 // [assembly: AssemblyConfiguration("")]
-// [assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("moonpyk.net")]
 [assembly: AssemblyProduct("RedisTray")]
 [assembly: AssemblyCopyright("Copyright © Moonpyk 2013")]
 // [assembly: AssemblyTrademark("")]

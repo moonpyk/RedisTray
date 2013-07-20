@@ -15,7 +15,7 @@ namespace RedisTray
         {
             InitializeComponent();
 
-           notifyIcon.Icon = Icon = 
+            notifyIcon.Icon = Icon = 
                Icon.ExtractAssociatedIcon(Assembly.GetCallingAssembly().Location);
 
             _redisProcess.OutputDataReceived += RedisProcessOnOutputDataReceived;
@@ -126,9 +126,44 @@ namespace RedisTray
             Visible = !Visible;
         }
 
-        private void BrowseExecutable_Click(object sender, EventArgs e)
+        private void BrowseFile(Action<string> callback)
         {
+            using (var o = new OpenFileDialog())
+            {
+                if (o.ShowDialog(this) == DialogResult.OK)
+                {
+                    callback(o.FileName);
+                }
+            }
+        }
 
+        private void btnSaveSettings_Click(object sender, EventArgs e)
+        {
+            Settings.Save();
+        }
+
+        private void btnBrowseRedis_Click(object sender, EventArgs e)
+        {
+            BrowseFile(delegate(string path)
+            {
+                txtRedisPath.Text = path;
+            });
+        }
+
+        private void btnBrowseRedisCli_Click(object sender, EventArgs e)
+        {
+            BrowseFile(delegate(string path)
+            {
+                txtRedisCliPath.Text = path;
+            });
+        }
+
+        private void btnBrowseRedisConfig_Click(object sender, EventArgs e)
+        {
+            BrowseFile(delegate(string path)
+            {
+                txtRedisConfigPath.Text = path;
+            });
         }
     }
 }

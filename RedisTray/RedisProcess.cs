@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
@@ -115,6 +116,14 @@ namespace RedisTray
                 return;
             }
 
+            var redisArgs = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(Settings.RedisServerConfigPath) &&
+                File.Exists(Settings.RedisServerConfigPath))
+            {
+                redisArgs = Settings.RedisServerConfigPath;
+            }
+
             _proc = new Process
             {
                 EnableRaisingEvents = true,
@@ -128,6 +137,7 @@ namespace RedisTray
                     RedirectStandardOutput = true,
                     StandardOutputEncoding = Encoding.UTF8,
                     StandardErrorEncoding  = Encoding.UTF8,
+                    Arguments              = redisArgs,
                 }
             };
 
@@ -154,32 +164,47 @@ namespace RedisTray
                     handler(this, args);
                 }
 
-                if (string.IsNullOrWhiteSpace(args.Data))
-                {
-                    return;
-                }
-
-                var m = PortReadyRegex.Match(args.Data);
-                if (m.Success)
-                {
-                    PortNumber = int.Parse(m.Groups[1].Value);
-                }
-
-                m = RedisVersionRegex.Match(args.Data);
-
-                if (m.Success)
-                {
-                    Version parsed;
-                    if (Version.TryParse(m.Groups[1].Value, out parsed))
-                    {
-                        RedisVersion = parsed;
-                    }
-                }
+                OnDataReceived(args);
             };
 
-            IsRunning = _proc.Start();
+            try
+            {
+                IsRunning = _proc.Start();
+            }
+            // ReSharper disable EmptyGeneralCatchClause
+            catch (Exception)
+            {
+                return;
+            }
+            // ReSharper restore EmptyGeneralCatchClause
+
             _proc.BeginErrorReadLine();
             _proc.BeginOutputReadLine();
+        }
+
+        protected virtual void OnDataReceived(DataReceivedEventArgs args)
+        {
+            if (string.IsNullOrWhiteSpace(args.Data))
+            {
+                return;
+            }
+
+            var m = PortReadyRegex.Match(args.Data);
+            if (m.Success)
+            {
+                PortNumber = int.Parse(m.Groups[1].Value);
+            }
+
+            m = RedisVersionRegex.Match(args.Data);
+
+            if (m.Success)
+            {
+                Version parsed;
+                if (Version.TryParse(m.Groups[1].Value, out parsed))
+                {
+                    RedisVersion = parsed;
+                }
+            }
         }
 
         public void Kill()
