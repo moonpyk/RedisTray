@@ -16,10 +16,11 @@ namespace RedisTray
             InitializeComponent();
 
             notifyIcon.Icon = Icon = 
-               Icon.ExtractAssociatedIcon(Assembly.GetCallingAssembly().Location);
+               Icon.ExtractAssociatedIcon(Assembly.GetCallingAssembly().Location
+            );
 
             _redisProcess.OutputDataReceived += RedisProcessOnOutputDataReceived;
-            _redisProcess.ErrorDataReceived += RedisProcessOnOutputDataReceived;
+            _redisProcess.ErrorDataReceived  += RedisProcessOnOutputDataReceived;
 
             _redisProcess.PropertyChanged += (sender, args) => Invoke((MethodInvoker)delegate
             {
@@ -27,6 +28,13 @@ namespace RedisTray
                 {
                     btnToggleServer.Checked = _redisProcess.IsRunning;
                     SetRedisStatus(_redisProcess.IsRunning);
+                }
+
+                if (
+                    _redisProcess.IsRunning &&
+                    (args.PropertyName == "PortNumber" || args.PropertyName == "RedisVersion"))
+                {
+                    PutRedisInfo();
                 }
             });
         }
@@ -37,6 +45,15 @@ namespace RedisTray
             {
                 return Settings.Default;
             }
+        }
+
+        private void PutRedisInfo()
+        {
+            toolStripStatusLabel.Text = string.Format(
+                "Redis {1} listening on port {0}",
+                _redisProcess.PortNumber,
+                _redisProcess.RedisVersion
+                );
         }
 
         protected override void OnLoad(EventArgs e)
@@ -66,12 +83,14 @@ namespace RedisTray
             if (started)
             {
                 btnToggleServer.Image = Resources.control_stop_square;
-                btnToggleServer.Text = "Stop Redis";
+                btnToggleServer.Text  = "Stop Redis";
+                PutRedisInfo();
             }
             else
             {
-                btnToggleServer.Image = Resources.control;
-                btnToggleServer.Text = "Start Redis";
+                btnToggleServer.Image     = Resources.control;
+                btnToggleServer.Text      = "Start Redis";
+                toolStripStatusLabel.Text = "";
             }
         }
 
