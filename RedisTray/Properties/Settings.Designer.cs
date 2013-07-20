@@ -25,42 +25,6 @@ namespace RedisTray.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\moonpyk\\Desktop\\Dev\\Redis\\redis-server.exe")]
-        public string RedisServerPath {
-            get {
-                return ((string)(this["RedisServerPath"]));
-            }
-            set {
-                this["RedisServerPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AutoStartRedis {
-            get {
-                return ((bool)(this["AutoStartRedis"]));
-            }
-            set {
-                this["AutoStartRedis"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\moonpyk\\Desktop\\Dev\\Redis\\redis-cli.exe")]
-        public string RedisCliPath {
-            get {
-                return ((string)(this["RedisCliPath"]));
-            }
-            set {
-                this["RedisCliPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string RedisServerConfigPath {
             get {
@@ -80,6 +44,42 @@ namespace RedisTray.Properties {
             }
             set {
                 this["StartHidden"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("redis-server.exe")]
+        public string RedisServerPath {
+            get {
+                return ((string)(this["RedisServerPath"]));
+            }
+            set {
+                this["RedisServerPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoStartRedis {
+            get {
+                return ((bool)(this["AutoStartRedis"]));
+            }
+            set {
+                this["AutoStartRedis"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("redis-cli.exe")]
+        public string RedisCliPath {
+            get {
+                return ((string)(this["RedisCliPath"]));
+            }
+            set {
+                this["RedisCliPath"] = value;
             }
         }
     }
