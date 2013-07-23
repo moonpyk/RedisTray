@@ -98,7 +98,7 @@ namespace RedisTray
                     sock.Connect(new IPEndPoint(IPAddress.Loopback, PortNumber));
                     var s = sock.GetStream();
 
-                    var command = Encoding.ASCII.GetBytes("SHUTDOWN" + Environment.NewLine);
+                    var command = Encoding.ASCII.GetBytes("SHUTDOWN\r\n");
                     s.Write(command, 0, command.Length);
                     s.Close(1000);
                 }

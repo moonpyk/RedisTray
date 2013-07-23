@@ -9,15 +9,14 @@ namespace RedisTray
 {
     public partial class FrmMain : Form
     {
+        private readonly Icon _iconNotStarted = Icon.ExtractAssociatedIcon(Assembly.GetCallingAssembly().Location);
         private readonly RedisProcess _redisProcess = new RedisProcess();
 
         public FrmMain()
         {
             InitializeComponent();
 
-            notifyIcon.Icon = Icon = 
-               Icon.ExtractAssociatedIcon(Assembly.GetCallingAssembly().Location
-            );
+            notifyIcon.Icon = Icon = _iconNotStarted;
 
             _redisProcess.OutputDataReceived += RedisProcessOnOutputDataReceived;
             _redisProcess.ErrorDataReceived  += RedisProcessOnOutputDataReceived;
@@ -66,7 +65,7 @@ namespace RedisTray
             }
         }
 
-        private void btnToggleServer_CheckedChanged(object sender, System.EventArgs e)
+        private void btnToggleServer_CheckedChanged(object sender, EventArgs e)
         {
             if (btnToggleServer.Checked)
             {
@@ -84,12 +83,14 @@ namespace RedisTray
             {
                 btnToggleServer.Image = Resources.control_stop_square;
                 btnToggleServer.Text  = "Stop Redis";
+                notifyIcon.Icon       = Icon = Resources.redis_tick;
                 PutRedisInfo();
             }
             else
             {
                 btnToggleServer.Image     = Resources.control;
                 btnToggleServer.Text      = "Start Redis";
+                notifyIcon.Icon           = Icon = _iconNotStarted;
                 toolStripStatusLabel.Text = "";
             }
         }
