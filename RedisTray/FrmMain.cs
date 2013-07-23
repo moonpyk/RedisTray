@@ -185,5 +185,20 @@ namespace RedisTray
                 txtRedisConfigPath.Text = path;
             });
         }
+
+        private void btnLunchRedisCli_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(
+                    Settings.RedisCliPath,
+                    string.Format("-p {0}", _redisProcess.PortNumber)
+                ));
+            }
+            // ReSharper disable EmptyGeneralCatchClause
+            catch (Exception) { }
+            // ReSharper restore EmptyGeneralCatchClause
+
+        }
     }
 }

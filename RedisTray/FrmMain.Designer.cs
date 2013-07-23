@@ -33,8 +33,11 @@
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabRedisServer = new System.Windows.Forms.TabPage();
+            this.btnLunchRedisCli = new System.Windows.Forms.Button();
             this.btnToggleServer = new System.Windows.Forms.CheckBox();
             this.txtRedisOut = new System.Windows.Forms.TextBox();
             this.tabOptions = new System.Windows.Forms.TabPage();
@@ -55,19 +58,17 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabRedisServer.SuspendLayout();
             this.tabOptions.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon
@@ -101,17 +102,32 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(611, 393);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(661, 331);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(611, 439);
+            this.toolStripContainer1.Size = new System.Drawing.Size(661, 377);
             this.toolStripContainer1.TabIndex = 2;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(661, 22);
+            this.statusStrip1.TabIndex = 0;
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // tabControl
             // 
@@ -123,20 +139,32 @@
             this.tabControl.Location = new System.Drawing.Point(3, 3);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(608, 387);
+            this.tabControl.Size = new System.Drawing.Size(658, 325);
             this.tabControl.TabIndex = 0;
             // 
             // tabRedisServer
             // 
+            this.tabRedisServer.Controls.Add(this.btnLunchRedisCli);
             this.tabRedisServer.Controls.Add(this.btnToggleServer);
             this.tabRedisServer.Controls.Add(this.txtRedisOut);
             this.tabRedisServer.Location = new System.Drawing.Point(4, 22);
             this.tabRedisServer.Name = "tabRedisServer";
             this.tabRedisServer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRedisServer.Size = new System.Drawing.Size(600, 361);
+            this.tabRedisServer.Size = new System.Drawing.Size(650, 299);
             this.tabRedisServer.TabIndex = 0;
             this.tabRedisServer.Text = "Redis";
             this.tabRedisServer.UseVisualStyleBackColor = true;
+            // 
+            // btnLunchRedisCli
+            // 
+            this.btnLunchRedisCli.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLunchRedisCli.Image = global::RedisTray.Properties.Resources.terminal__arrow;
+            this.btnLunchRedisCli.Location = new System.Drawing.Point(595, 260);
+            this.btnLunchRedisCli.Name = "btnLunchRedisCli";
+            this.btnLunchRedisCli.Size = new System.Drawing.Size(49, 36);
+            this.btnLunchRedisCli.TabIndex = 2;
+            this.btnLunchRedisCli.UseVisualStyleBackColor = true;
+            this.btnLunchRedisCli.Click += new System.EventHandler(this.btnLunchRedisCli_Click);
             // 
             // btnToggleServer
             // 
@@ -144,9 +172,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnToggleServer.Appearance = System.Windows.Forms.Appearance.Button;
             this.btnToggleServer.Image = global::RedisTray.Properties.Resources.control;
-            this.btnToggleServer.Location = new System.Drawing.Point(6, 322);
+            this.btnToggleServer.Location = new System.Drawing.Point(6, 260);
             this.btnToggleServer.Name = "btnToggleServer";
-            this.btnToggleServer.Size = new System.Drawing.Size(588, 36);
+            this.btnToggleServer.Size = new System.Drawing.Size(582, 36);
             this.btnToggleServer.TabIndex = 1;
             this.btnToggleServer.Text = "Start Redis";
             this.btnToggleServer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -166,7 +194,7 @@
             this.txtRedisOut.Name = "txtRedisOut";
             this.txtRedisOut.ReadOnly = true;
             this.txtRedisOut.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtRedisOut.Size = new System.Drawing.Size(588, 310);
+            this.txtRedisOut.Size = new System.Drawing.Size(638, 248);
             this.txtRedisOut.TabIndex = 0;
             // 
             // tabOptions
@@ -176,7 +204,7 @@
             this.tabOptions.Location = new System.Drawing.Point(4, 22);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions.Size = new System.Drawing.Size(600, 383);
+            this.tabOptions.Size = new System.Drawing.Size(600, 361);
             this.tabOptions.TabIndex = 2;
             this.tabOptions.Text = "Options";
             this.tabOptions.UseVisualStyleBackColor = true;
@@ -184,7 +212,7 @@
             // btnSaveSettings
             // 
             this.btnSaveSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveSettings.Location = new System.Drawing.Point(487, 347);
+            this.btnSaveSettings.Location = new System.Drawing.Point(487, 325);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(107, 30);
             this.btnSaveSettings.TabIndex = 9;
@@ -354,7 +382,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(611, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(661, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip";
             // 
@@ -383,26 +411,11 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitMenu_Click);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(611, 22);
-            this.statusStrip1.TabIndex = 0;
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(611, 439);
+            this.ClientSize = new System.Drawing.Size(661, 377);
             this.Controls.Add(this.toolStripContainer1);
             this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
@@ -418,6 +431,8 @@
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.tabControl.ResumeLayout(false);
             this.tabRedisServer.ResumeLayout(false);
             this.tabRedisServer.PerformLayout();
@@ -426,8 +441,6 @@
             this.tableLayoutPanel2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -462,6 +475,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.Button btnLunchRedisCli;
     }
 }
 
