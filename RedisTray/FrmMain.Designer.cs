@@ -33,11 +33,11 @@
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabRedisServer = new System.Windows.Forms.TabPage();
-            this.btnLunchRedisCli = new System.Windows.Forms.Button();
+            this.btnStartRedisCli = new System.Windows.Forms.Button();
             this.btnToggleServer = new System.Windows.Forms.CheckBox();
             this.txtRedisOut = new System.Windows.Forms.TextBox();
             this.tabOptions = new System.Windows.Forms.TabPage();
@@ -54,41 +54,46 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuStartCli = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.hideWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextStartRedisCli = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabRedisServer.SuspendLayout();
             this.tabOptions.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon
             // 
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
-            this.notifyIcon.Text = "RedisTray";
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextStartRedisCli,
+            this.toolStripSeparator2,
             this.exitToolStripMenuItem1});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(93, 26);
+            this.contextMenuStrip.Size = new System.Drawing.Size(144, 54);
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
             this.exitToolStripMenuItem1.Text = "&Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitMenu_Click);
             // 
@@ -97,7 +102,7 @@
             // 
             // toolStripContainer1.BottomToolStripPanel
             // 
-            this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.statusStrip1);
+            this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.statusStrip);
             // 
             // toolStripContainer1.ContentPanel
             // 
@@ -112,17 +117,17 @@
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip);
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(661, 22);
-            this.statusStrip1.TabIndex = 0;
+            this.statusStrip.Location = new System.Drawing.Point(0, 0);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(661, 22);
+            this.statusStrip.TabIndex = 0;
             // 
             // toolStripStatusLabel
             // 
@@ -144,7 +149,7 @@
             // 
             // tabRedisServer
             // 
-            this.tabRedisServer.Controls.Add(this.btnLunchRedisCli);
+            this.tabRedisServer.Controls.Add(this.btnStartRedisCli);
             this.tabRedisServer.Controls.Add(this.btnToggleServer);
             this.tabRedisServer.Controls.Add(this.txtRedisOut);
             this.tabRedisServer.Location = new System.Drawing.Point(4, 22);
@@ -155,16 +160,16 @@
             this.tabRedisServer.Text = "Redis";
             this.tabRedisServer.UseVisualStyleBackColor = true;
             // 
-            // btnLunchRedisCli
+            // btnStartRedisCli
             // 
-            this.btnLunchRedisCli.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLunchRedisCli.Image = global::RedisTray.Properties.Resources.terminal__arrow;
-            this.btnLunchRedisCli.Location = new System.Drawing.Point(595, 260);
-            this.btnLunchRedisCli.Name = "btnLunchRedisCli";
-            this.btnLunchRedisCli.Size = new System.Drawing.Size(49, 36);
-            this.btnLunchRedisCli.TabIndex = 2;
-            this.btnLunchRedisCli.UseVisualStyleBackColor = true;
-            this.btnLunchRedisCli.Click += new System.EventHandler(this.btnLunchRedisCli_Click);
+            this.btnStartRedisCli.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStartRedisCli.Image = global::RedisTray.Properties.Resources.terminal__arrow;
+            this.btnStartRedisCli.Location = new System.Drawing.Point(595, 260);
+            this.btnStartRedisCli.Name = "btnStartRedisCli";
+            this.btnStartRedisCli.Size = new System.Drawing.Size(49, 36);
+            this.btnStartRedisCli.TabIndex = 2;
+            this.btnStartRedisCli.UseVisualStyleBackColor = true;
+            this.btnStartRedisCli.Click += new System.EventHandler(this.btnLunchRedisCli_Click);
             // 
             // btnToggleServer
             // 
@@ -204,7 +209,7 @@
             this.tabOptions.Location = new System.Drawing.Point(4, 22);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions.Size = new System.Drawing.Size(600, 361);
+            this.tabOptions.Size = new System.Drawing.Size(650, 299);
             this.tabOptions.TabIndex = 2;
             this.tabOptions.Text = "Options";
             this.tabOptions.UseVisualStyleBackColor = true;
@@ -212,7 +217,7 @@
             // btnSaveSettings
             // 
             this.btnSaveSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveSettings.Location = new System.Drawing.Point(487, 325);
+            this.btnSaveSettings.Location = new System.Drawing.Point(537, 263);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(107, 30);
             this.btnSaveSettings.TabIndex = 9;
@@ -248,13 +253,13 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(588, 187);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(638, 187);
             this.tableLayoutPanel2.TabIndex = 8;
             // 
             // btnBrowseRedisConfig
             // 
             this.btnBrowseRedisConfig.Image = global::RedisTray.Properties.Resources.folder_horizontal_open;
-            this.btnBrowseRedisConfig.Location = new System.Drawing.Point(561, 55);
+            this.btnBrowseRedisConfig.Location = new System.Drawing.Point(611, 55);
             this.btnBrowseRedisConfig.Name = "btnBrowseRedisConfig";
             this.btnBrowseRedisConfig.Size = new System.Drawing.Size(24, 20);
             this.btnBrowseRedisConfig.TabIndex = 17;
@@ -268,14 +273,14 @@
             this.txtRedisConfigPath.Location = new System.Drawing.Point(136, 55);
             this.txtRedisConfigPath.Name = "txtRedisConfigPath";
             this.txtRedisConfigPath.ReadOnly = true;
-            this.txtRedisConfigPath.Size = new System.Drawing.Size(419, 20);
+            this.txtRedisConfigPath.Size = new System.Drawing.Size(469, 20);
             this.txtRedisConfigPath.TabIndex = 16;
             this.txtRedisConfigPath.Text = global::RedisTray.Properties.Settings.Default.RedisServerConfigPath;
             // 
             // btnBrowseRedisCli
             // 
             this.btnBrowseRedisCli.Image = global::RedisTray.Properties.Resources.folder_horizontal_open;
-            this.btnBrowseRedisCli.Location = new System.Drawing.Point(561, 29);
+            this.btnBrowseRedisCli.Location = new System.Drawing.Point(611, 29);
             this.btnBrowseRedisCli.Name = "btnBrowseRedisCli";
             this.btnBrowseRedisCli.Size = new System.Drawing.Size(24, 20);
             this.btnBrowseRedisCli.TabIndex = 12;
@@ -289,7 +294,7 @@
             this.txtRedisCliPath.Location = new System.Drawing.Point(136, 29);
             this.txtRedisCliPath.Name = "txtRedisCliPath";
             this.txtRedisCliPath.ReadOnly = true;
-            this.txtRedisCliPath.Size = new System.Drawing.Size(419, 20);
+            this.txtRedisCliPath.Size = new System.Drawing.Size(469, 20);
             this.txtRedisCliPath.TabIndex = 11;
             this.txtRedisCliPath.Text = global::RedisTray.Properties.Settings.Default.RedisCliPath;
             // 
@@ -322,7 +327,7 @@
             this.txtRedisPath.Location = new System.Drawing.Point(136, 3);
             this.txtRedisPath.Name = "txtRedisPath";
             this.txtRedisPath.ReadOnly = true;
-            this.txtRedisPath.Size = new System.Drawing.Size(419, 20);
+            this.txtRedisPath.Size = new System.Drawing.Size(469, 20);
             this.txtRedisPath.TabIndex = 3;
             this.txtRedisPath.Text = global::RedisTray.Properties.Settings.Default.RedisServerPath;
             // 
@@ -330,7 +335,7 @@
             // 
             this.btnBrowseRedis.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnBrowseRedis.Image = global::RedisTray.Properties.Resources.folder_horizontal_open;
-            this.btnBrowseRedis.Location = new System.Drawing.Point(561, 3);
+            this.btnBrowseRedis.Location = new System.Drawing.Point(611, 3);
             this.btnBrowseRedis.Name = "btnBrowseRedis";
             this.btnBrowseRedis.Size = new System.Drawing.Size(24, 20);
             this.btnBrowseRedis.TabIndex = 4;
@@ -375,25 +380,41 @@
             this.label3.Text = "Redis config file :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(661, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip";
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(661, 24);
+            this.menuStrip.TabIndex = 0;
+            this.menuStrip.Text = "menuStrip";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuStartCli,
+            this.toolStripSeparator1,
             this.hideWindowToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // toolStripMenuStartCli
+            // 
+            this.toolStripMenuStartCli.Image = global::RedisTray.Properties.Resources.terminal__arrow;
+            this.toolStripMenuStartCli.Name = "toolStripMenuStartCli";
+            this.toolStripMenuStartCli.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.toolStripMenuStartCli.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuStartCli.Text = "Start redis-cli";
+            this.toolStripMenuStartCli.Click += new System.EventHandler(this.btnLunchRedisCli_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
             // 
             // hideWindowToolStripMenuItem
             // 
@@ -411,6 +432,19 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitMenu_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(140, 6);
+            // 
+            // contextStartRedisCli
+            // 
+            this.contextStartRedisCli.Image = global::RedisTray.Properties.Resources.terminal__arrow;
+            this.contextStartRedisCli.Name = "contextStartRedisCli";
+            this.contextStartRedisCli.Size = new System.Drawing.Size(143, 22);
+            this.contextStartRedisCli.Text = "Start redis-cli";
+            this.contextStartRedisCli.Click += new System.EventHandler(this.btnLunchRedisCli_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -418,7 +452,7 @@
             this.ClientSize = new System.Drawing.Size(661, 377);
             this.Controls.Add(this.toolStripContainer1);
             this.DoubleBuffered = true;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.MinimizeBox = false;
             this.Name = "FrmMain";
             this.Text = "RedisTray";
@@ -431,16 +465,16 @@
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.tabControl.ResumeLayout(false);
             this.tabRedisServer.ResumeLayout(false);
             this.tabRedisServer.PerformLayout();
             this.tabOptions.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -449,7 +483,7 @@
 
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideWindowToolStripMenuItem;
@@ -473,9 +507,13 @@
         private System.Windows.Forms.Button btnBrowseRedisConfig;
         private System.Windows.Forms.TextBox txtRedisConfigPath;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
-        private System.Windows.Forms.Button btnLunchRedisCli;
+        private System.Windows.Forms.Button btnStartRedisCli;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuStartCli;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem contextStartRedisCli;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

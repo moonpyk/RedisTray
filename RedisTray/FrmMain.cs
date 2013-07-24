@@ -48,11 +48,15 @@ namespace RedisTray
 
         private void PutRedisInfo()
         {
-            toolStripStatusLabel.Text = string.Format(
+            var t = string.Format(
                 "Redis {1} listening on port {0}",
                 _redisProcess.PortNumber,
                 _redisProcess.RedisVersion
-                );
+            );
+
+            toolStripStatusLabel.Text = t;
+
+            notifyIcon.Text = string.Format("RedisTray - {0}", t);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -92,6 +96,7 @@ namespace RedisTray
                 btnToggleServer.Text      = "Start Redis";
                 notifyIcon.Icon           = Icon = _iconNotStarted;
                 toolStripStatusLabel.Text = "";
+                notifyIcon.Text           = "RedisTray";
             }
         }
 
