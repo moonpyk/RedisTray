@@ -32,6 +32,10 @@ namespace RedisTray
             {
                 f.Show();
             }
+            else
+            {
+                f.AutoStartIfConfigured();
+            }
 
             Application.Run();
         }

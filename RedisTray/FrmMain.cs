@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 
 namespace RedisTray
@@ -11,6 +12,7 @@ namespace RedisTray
     {
         private readonly Icon _iconNotStarted = Icon.ExtractAssociatedIcon(Assembly.GetCallingAssembly().Location);
         private readonly RedisProcess _redisProcess = new RedisProcess();
+        private readonly StringBuilder _buffer = new StringBuilder();
 
         public FrmMain()
         {
@@ -21,7 +23,7 @@ namespace RedisTray
             _redisProcess.OutputDataReceived += RedisProcessOnOutputDataReceived;
             _redisProcess.ErrorDataReceived  += RedisProcessOnOutputDataReceived;
 
-            _redisProcess.PropertyChanged += (sender, args) => Invoke((MethodInvoker)delegate
+            _redisProcess.PropertyChanged += (sender, args) => SafeInvoke((MethodInvoker)delegate
             {
                 if (args.PropertyName == "IsRunning")
                 {
@@ -63,7 +65,18 @@ namespace RedisTray
         {
             base.OnLoad(e);
 
-            if (Settings.AutoStartRedis)
+            if (_buffer.Length > 0)
+            {
+                txtRedisOut.AppendText(_buffer.ToString());
+                _buffer.Clear();
+            }
+
+            AutoStartIfConfigured();
+        }
+
+        public void AutoStartIfConfigured()
+        {
+            if (Settings.AutoStartRedis && !_redisProcess.IsRunning)
             {
                 btnToggleServer.Checked = true;
             }
@@ -102,10 +115,15 @@ namespace RedisTray
 
         private void AppendRedisOutText(string t)
         {
-            Invoke((MethodInvoker)delegate
+            SafeInvoke((MethodInvoker)delegate
             {
                 if (string.IsNullOrWhiteSpace(t))
                 {
+                    return;
+                }
+                if (!IsHandleCreated)
+                {
+                    _buffer.Append(t + Environment.NewLine);
                     return;
                 }
                 txtRedisOut.AppendText(t + Environment.NewLine);
@@ -151,17 +169,6 @@ namespace RedisTray
             Visible = !Visible;
         }
 
-        private void BrowseFile(Action<string> callback)
-        {
-            using (var o = new OpenFileDialog())
-            {
-                if (o.ShowDialog(this) == DialogResult.OK)
-                {
-                    callback(o.FileName);
-                }
-            }
-        }
-
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
             Settings.Save();
@@ -169,26 +176,17 @@ namespace RedisTray
 
         private void btnBrowseRedis_Click(object sender, EventArgs e)
         {
-            BrowseFile(delegate(string path)
-            {
-                txtRedisPath.Text = path;
-            });
+            BrowseFile(_ => txtRedisPath.Text = _);
         }
 
         private void btnBrowseRedisCli_Click(object sender, EventArgs e)
         {
-            BrowseFile(delegate(string path)
-            {
-                txtRedisCliPath.Text = path;
-            });
+            BrowseFile(_ => txtRedisCliPath.Text = _);
         }
 
         private void btnBrowseRedisConfig_Click(object sender, EventArgs e)
         {
-            BrowseFile(delegate(string path)
-            {
-                txtRedisConfigPath.Text = path;
-            });
+            BrowseFile(_ => txtRedisConfigPath.Text = _);
         }
 
         private void btnLunchRedisCli_Click(object sender, EventArgs e)
@@ -203,7 +201,29 @@ namespace RedisTray
             // ReSharper disable EmptyGeneralCatchClause
             catch (Exception) { }
             // ReSharper restore EmptyGeneralCatchClause
+        }
 
+        private void SafeInvoke(Delegate d)
+        {
+            if (IsHandleCreated)
+            {
+                Invoke(d);
+            }
+            else
+            {
+                d.DynamicInvoke(null);
+            }
+        }
+
+        private void BrowseFile(Action<string> callback)
+        {
+            using (var o = new OpenFileDialog())
+            {
+                if (o.ShowDialog(this) == DialogResult.OK)
+                {
+                    callback(o.FileName);
+                }
+            }
         }
     }
 }
